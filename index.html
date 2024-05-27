@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณราคาขาย</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>คำนวณราคาขายบน<br>Shopee & Tiktok</h1> 
+    <label for="cost">ต้นทุนสินค้า (บาท):</label>
+    <input type="number" id="cost" placeholder="ใส่ต้นทุนสินค้า">
+    
+    <label for="profit">กำไรที่ต้องการ (%):</label>
+    <input type="number" id="profit" placeholder="ใส่เปอร์เซ็นต์กำไรที่ต้องการ">
+    
+    <label for="tax">ภาษี (%):</label>
+    <input type="number" id="tax" placeholder="ใส่เปอร์เซ็นต์ภาษี">
+    
+    <button onclick="calculatePrice()">คำนวณ</button>
+    
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function calculatePrice() {
+        const cost = parseFloat(document.getElementById('cost').value);
+        const profit = parseFloat(document.getElementById('profit').value) / 100;
+        const tax = parseFloat(document.getElementById('tax').value) / 100;
+        
+        const shopeeFee = 0.11;
+        const tiktokFee = 0.07;
+        
+        const shopeePrice = cost / (1 - shopeeFee - profit - tax);
+        const tiktokPrice = cost / (1 - tiktokFee - profit - tax);
+        
+        document.getElementById('result').innerHTML = `
+            <h2>ผลลัพธ์</h2>
+            <p>ราคาขายบน Shopee: ${shopeePrice.toFixed(2)} บาท</p>
+            <p>ราคาขายบน TikTok: ${tiktokPrice.toFixed(2)} บาท</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
